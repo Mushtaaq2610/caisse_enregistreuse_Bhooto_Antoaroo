@@ -1,35 +1,64 @@
+// returns number of units and subtracts unit_size * result
+// from val
+
 #include <math.h> 
 #include <stdio.h> 
 #include <stdlib.h> 
 #include<time.h>
+
+int units(int* val, int unit_size)
+{
+    int num = *val / unit_size;
+    *val %= unit_size;
+
+    return num;
+}
+
 int main()
+{
+    
 
-{  
-    float amt,total,num,generated,change,amt_ret;
-
-    // Generate a random number
+    float amount,amt_money,tot_amt;
+    
     srand(time(0)); 
-    generated = rand() % 10000; 
-    num = generated;
+    amount = rand()% 100000;
+    amount = amount/10;
 
-
-    printf("Change=%f\n",num); 
-    printf("Enter an amount "); 
-    scanf("%f", &amt); 
+    printf("The amount that you need to pay : %.2f\n",amount);
     
-
-    do{
     
-        if(amt<num)
-        {
-          printf("The amount you have have enter is too low, please put an amount greater or equal to %f\n",num);
-          scanf("%f", &amt);
-        }
+    printf("Enter the amount of money you would give : ");
+    scanf("%f",&amt_money);
+    
+    while(amount > amt_money)
+    {
+        
+      printf("Insufficient Funds!");
+      printf("Enter the amount of money you would give : ");
+      scanf("%f",&amt_money);  
+        
+    }
+    
+    tot_amt = amt_money - amount;
+    
+    printf("The amount to return : %.2f\n",tot_amt);
 
-    }while(amt<num);
+    int x = (int)(tot_amt * 100.0 + 0.5);
 
-    amt_ret = amt-num;
-    printf("Amount to return = %f\n",amt_ret);
-  
-    return 0; 
-} 
+    printf("No. of RS 2000 notes: %d\n", units(&x, 2000 * 100) );
+    printf("No. of RS 1000 notes: %d\n", units(&x, 1000 * 100) );
+    printf("No. of RS 500 notes: %d\n", units(&x, 500 * 100) );
+    printf("No. of RS 200 notes: %d\n", units(&x, 200 * 100) );
+    printf("No. of RS 100 notes: %d\n", units(&x, 100 * 100) );
+    printf("No. of RS 50 notes: %d\n", units(&x, 50 * 100) );
+    printf("No. of RS 25 notes: %d\n", units(&x, 25 * 100) );
+    printf("No. of RS 20 coin: %d\n", units(&x, 20 * 100) );
+    printf("No. of RS 10 coin: %d\n", units(&x, 10 * 100) );
+    printf("No. of RS 5 coin: %d\n", units(&x, 10 * 100) );
+    printf("No. of RS 1 coin: %d\n", units(&x, 1 * 100) );
+    printf("No. of 50 cents: %d\n", units(&x, 50) );
+    printf("No. of 20 cents: %d\n", units(&x, 20) );
+    printf("No. of 5 cent: %d\n", units(&x, 5) );
+
+    return 0;
+}
